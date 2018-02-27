@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/blur"
+    android:layout_height="match_parent"
+    tools:context="com.example.pankajthawani.afterdeathcare.Register">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/register"
+        android:textSize="30dp"
+        android:textColor="@android:color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:fontFamily="serif"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:hint="Enter Name"
+        android:id="@+id/name"
+        android:inputType="textNoSuggestions"
+        android:drawableRight="@drawable/name"
+        android:textColorHint="@android:color/black"
+        android:textColor="@android:color/black"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:hint="Enter Your Mobile Number"
+        android:textColorHint="@android:color/black"
+        android:textColor="@android:color/black"
+        android:drawableRight="@drawable/phone"
+        android:inputType="number"
+        android:id="@+id/phonenum"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:textStyle="bold"
+        android:fontFamily="serif"
+        android:layout_marginTop="230dp"
+        android:background="@color/colorPrimaryDark"
+        android:id="@+id/regbtn"
+        />
+</RelativeLayout>
