@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/ib"
+    android:layout_height="match_parent"
+    tools:context="com.example.pankajthawani.afterdeathcare.OnHelp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:textSize="18dp"
+        android:fontFamily="serif"
+        android:textColor="#000000"
+        android:id="@+id/onhelp"
+        android:layout_height="wrap_content"
+        android:text="@string/help"
+        />
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/onhelp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/buttonshape"
+        android:text="BACK" />
+</RelativeLayout>

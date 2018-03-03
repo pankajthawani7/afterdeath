@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">After Death Care</string>
+    <string name="app_name">DeathCare</string>
+    <string name="help">
+        Mortuary vans are largely not available which cause great disapointment to the family members."\n"To resolve this problem our team has created an application which will provide you a mortuary van at your desired location."\n"Just follow the steps given below."\n"1.Register yourself by entering your name and your valid mobile No."\n"2.An OTP will be send to your No. enter the OTP and you will be registered."\n"3.Now enter the desired location and click on send button."\n"4.After some time you will get a call from van driver."\n"
+    </string>
 </resources>

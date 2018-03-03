@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@drawable/blur"
+    android:background="@drawable/ib"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:text="Login"
-        android:textColor="@android:color/black"
+        android:textColor="#000000"
         android:textSize="30dp">
     </TextView>
 
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Enter OTP"
-        android:textColorHint="@android:color/black"
+        android:textColorHint="#000000"
         android:fontFamily="serif"
         android:inputType="number"
         android:id="@+id/otp"
@@ -31,11 +31,11 @@
         android:textStyle="bold"/>
     <Button
         android:id="@+id/lgnbtn"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="220dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/buttonshape"
         android:fontFamily="serif"
         android:text="Login"
         android:textSize="15dp"

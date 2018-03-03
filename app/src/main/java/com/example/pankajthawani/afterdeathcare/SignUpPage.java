@@ -22,18 +22,24 @@ public class SignUpPage extends AppCompatActivity {
         t=findViewById(R.id.login);
         e1=findViewById(R.id.otp);
         b1=findViewById(R.id.lgnbtn);
-
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    try {
-
-                            Intent i = new Intent(SignUpPage.this, Dashboard.class);
-                            startActivity(i);
-                        }catch (Exception e){
-
-                        Toast.makeText(SignUpPage.this, "" + e, Toast.LENGTH_SHORT).show();
-                    }
+              try {
+                  if (Register.number.toString().equals(e1.getText().toString()))
+                  {
+                      Intent intent=new Intent(SignUpPage.this,Dashboard.class);
+                      startActivity(intent);
+                  }
+                  else
+                  {
+                      Toast.makeText(SignUpPage.this, "Please enter valid OTP", Toast.LENGTH_SHORT).show();
+                  }
+              }
+              catch (Exception e)
+              {
+                  e.printStackTrace();
+              }
             }
         });
 }

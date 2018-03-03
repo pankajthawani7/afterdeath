@@ -3,15 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/blur"
     android:layout_height="match_parent"
+    android:background="@drawable/ib"
     tools:context="com.example.pankajthawani.afterdeathcare.Dashboard">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:text="TextView"
-        android:textSize="30dp"
+        android:textSize="20dp"
+        android:textColor="#000000"
         android:layout_marginTop="50dp"
         android:id="@+id/comson"/>
 
@@ -19,11 +20,32 @@
         android:id="@+id/fnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="174dp"
-        android:background="@android:color/holo_blue_bright"
+        android:layout_alignLeft="@+id/snt"
+        android:layout_alignStart="@+id/snt"
+        android:layout_below="@+id/snt"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/buttonshape"
         android:text="Send" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find Location via GPS"
+        android:textColor="@android:color/black"
+        android:background="@drawable/buttonshape"
+        android:layout_marginTop="200dp"
+        android:id="@+id/snt"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/exitbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/fnd"
+        android:layout_alignStart="@+id/fnd"
+        android:layout_alignTop="@+id/fnd"
+        android:layout_marginTop="85dp"
+        android:background="@drawable/buttonshape"
+        android:text="Exit" />
 
 
 </RelativeLayout>
