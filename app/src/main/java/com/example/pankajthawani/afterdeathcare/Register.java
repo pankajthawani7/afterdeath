@@ -28,7 +28,7 @@ import com.android.volley.toolbox.Volley;
 
 public class Register extends AppCompatActivity {
     TextView register,helpAct;
-    EditText getName,getMobile;
+   static EditText getName,getMobile;
     Button registerBtn;
     static String name,mob;
     static Random random=new Random();

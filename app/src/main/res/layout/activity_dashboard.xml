@@ -24,7 +24,7 @@
         android:layout_below="@+id/snt"
         android:layout_marginTop="25dp"
         android:background="@drawable/buttonshape"
-        android:text="Find Driver" />
+        android:text="Send" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -93,12 +94,14 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                SmsManager smsManager=SmsManager.getDefault();
-                smsManager.sendTextMessage("9529024482",null,"Address- "+fulladdress,null,null);
-
-                SmsManager smsManager1=SmsManager.getDefault();
-                smsManager1.sendTextMessage(Register.mob,null,"We get your address we will soon send a mortuary van to your location"+"\n"+"  -After Death Care Team",null,null);
-
+                StringBuilder sb=new StringBuilder();
+                sb.append("Name-"+Register.name+"\n");
+                sb.append("Mobile No-"+Register.mob+"\n");
+                sb.append("Address-"+fulladdress+"\n");
+                Uri uri = Uri.parse("smsto:9529024482");
+                Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+                intent.putExtra("sms_body", sb.toString());
+                startActivity(intent);
             }
         });
 
@@ -184,6 +187,8 @@ public class Dashboard extends AppCompatActivity {
         });
     }
 
+    private class PERMISSION_SEND_SMS {
+    }
 }
 
 
