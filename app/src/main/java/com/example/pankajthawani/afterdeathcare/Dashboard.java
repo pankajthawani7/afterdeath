@@ -1,12 +1,10 @@
 package com.example.pankajthawani.afterdeathcare;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -15,23 +13,20 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Process;
+import android.os.Handler;
 import android.provider.Settings;
-import android.provider.Telephony;
-import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.gsm.SmsManager;
+import android.telephony.SmsManager;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,12 +35,11 @@ public class Dashboard extends AppCompatActivity {
     Double lag, log;
     String fulladdress;
     String address, area, city, country, postalcode;
-    Button findAdd, send,exit;
+    Button findAdd, send, exit;
     LocationManager locationManager;
     LocationListener locationListener;
     List<Address> addresses;
     Geocoder geocoder;
-
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,36 +48,60 @@ public class Dashboard extends AppCompatActivity {
         getLocation = findViewById(R.id.comson);
         findAdd = findViewById(R.id.fnd);
         send = findViewById(R.id.snt);
-        exit=findViewById(R.id.exitbtn);
+        exit = findViewById(R.id.exitbtn);
+
+
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationListener = new LocationListener() {
+
             @Override
             public void onLocationChanged(Location location) {
+                //Taking the Latitude and Longitude on the lag and log respectively..
                 lag = location.getLatitude();
                 log = location.getLongitude();
+                //Get current location on button click..
                 send.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
+                    public void onClick(View view)
+                    {
                         onLocation();
                     }
                 });
             }
+
             @Override
             public void onStatusChanged(String s, int i, Bundle bundle) {
-
             }
-
             @Override
-            public void onProviderEnabled(String s) {
-
+            public void onProviderEnabled(String s)
+            {
+                //setting call  by Intent
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Uri uri = Uri.fromParts("package", getPackageName(), null);
+                intent.setData(uri);
+                startActivity(intent);
             }
-
             @Override
             public void onProviderDisabled(String s) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 startActivity(intent);
+
             }
         };
+        findAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                SmsManager smsManager=SmsManager.getDefault();
+                smsManager.sendTextMessage("9529024482",null,"Address- "+fulladdress,null,null);
+
+                SmsManager smsManager1=SmsManager.getDefault();
+                smsManager1.sendTextMessage(Register.mob,null,"We get your address we will soon send a mortuary van to your location"+"\n"+"  -After Death Care Team",null,null);
+
+            }
+        });
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET,
@@ -112,7 +130,35 @@ public class Dashboard extends AppCompatActivity {
                 }
         }
     }
-        public void onLocation() {
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                Dashboard.this);
+        alertDialogBuilder.setTitle("Exit");
+        alertDialogBuilder
+                .setCancelable(false)
+                .setIcon(R.drawable.wall)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            finishAffinity();
+                        }
+
+                    }
+                })
+                .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    //Code to access current location..
+    public void onLocation() {
+
         geocoder = new Geocoder(this, Locale.getDefault());
         try {
             addresses = geocoder.getFromLocation(lag, log, 1);
@@ -122,31 +168,23 @@ public class Dashboard extends AppCompatActivity {
             country = addresses.get(0).getCountryName();
             postalcode = addresses.get(0).getCountryCode();
             fulladdress = address + ", " + area + ", " + city + ", " + country + ", " + postalcode;
+            //Set the location on TextView getLocation..
             getLocation.setText(fulladdress);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-                exit.setOnClickListener(new View.OnClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-                    @Override
-                    public void onClick(View view) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            finishAffinity();
-                        }
-                        System.exit(0);
-                    }
-                });
-
-        send.setOnClickListener(new View.OnClickListener() {
+        exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                android.telephony.SmsManager smsManager= android.telephony.SmsManager.getDefault();
-                smsManager.sendTextMessage("9529024482",null,"You will soon recieve a call from our driver",null,null);
-                Toast.makeText(Dashboard.this, "Message Send", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent( Dashboard.this,Register.class);
+                startActivity(intent);
+
             }
         });
     }
 
 }
+
 
 

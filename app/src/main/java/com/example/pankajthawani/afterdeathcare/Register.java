@@ -1,6 +1,8 @@
 package com.example.pankajthawani.afterdeathcare;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,26 +28,29 @@ import com.android.volley.toolbox.Volley;
 
 public class Register extends AppCompatActivity {
     TextView register,helpAct;
-    EditText e1,e2;
-    Button button;
+    EditText getName,getMobile;
+    Button registerBtn;
     static String name,mob;
     static Random random=new Random();
     static int num=random.nextInt(100000)+1;
     static String number=String.valueOf(num);
+    SharedPreferences sf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         register=findViewById(R.id.register);
-        e1=findViewById(R.id.name);
+        getName=findViewById(R.id.name);
         helpAct=findViewById(R.id.help);
-        e2=findViewById(R.id.phonenum);
-        button=findViewById(R.id.regbtn);
-        button.setOnClickListener(new View.OnClickListener() {
+        getMobile=findViewById(R.id.phonenum);
+        registerBtn=findViewById(R.id.regbtn);
+        sf=getSharedPreferences("sp", Context.MODE_PRIVATE);
+        registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+            //Code to check weather the inputed number is of 10 digit or either name is empty.
             public void onClick(View view) {
-                if (e2.length()!=10 && e1.length()==0)
+                if (getMobile.length()!=10 && getName.length()==0)
                 {
                     Toast.makeText(Register.this, "Enter Valid Mobile No.", Toast.LENGTH_LONG).show();
                 }
@@ -54,62 +59,63 @@ public class Register extends AppCompatActivity {
                     Intent i=new Intent(Register.this,SignUpPage.class);
                     startActivity(i);
                 }
+                //Code to send OTP
                 try {
                     SmsManager smsManager= SmsManager.getDefault();
-                    smsManager.sendTextMessage(e2.getText().toString(),null,"Hello "+e1.getText().toString()+"\n"+"Your OTP is "+number,null,null);
+                    smsManager.sendTextMessage(getMobile.getText().toString(),null,"Hello "+getName.getText().toString()+"\n"+"Your OTP is "+number,null,null);
                     Toast.makeText(Register.this, "OTP send", Toast.LENGTH_SHORT).show();
                     send_data();
+
                 }
                 catch (Exception e)
                 {
                     Toast.makeText(Register.this, ""+e, Toast.LENGTH_SHORT).show();
                 }
-                name=e1.getText().toString();
-                mob=e2.getText().toString();
+                SharedPreferences.Editor editor=sf.edit();
+                name=getName.getText().toString();
+                mob=getMobile.getText().toString();
+                editor.putString("name",name);
+                editor.putString("mobile",mob);
+                editor.commit();
             }
 
         });
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
     }
-
+    //Code to enter Data into Server using Volley..
     public void send_data() {
         StringRequest st=new StringRequest(Request.Method.POST, "https://codewebtk.000webhostapp.com/webservices/afterdeathcare.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-                Toast.makeText(Register.this, "success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Register.this, ""+response, Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Toast.makeText(Register.this, "Error=", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Register.this, "Error= "+error, Toast.LENGTH_SHORT).show();
             }
 
         })
 
         {
+                //Code to put data into database..
                 protected Map<String,String> getParams(){
                 Map<String,String> mp;
                 mp=new HashMap<String,String>();
-                mp.put("name",e1.getText().toString());
-                mp.put("contact",e2.getText().toString());
+                mp.put("name",getName.getText().toString());
+                mp.put("contact",getMobile.getText().toString());
                 return  mp;
             }
 
 
         };
-
+        //Add data into queue..
         RequestQueue q= Volley.newRequestQueue(Register.this);
         q.add(st);
 
     }
-
+    //Code to go to help Activity using Intent
     public void on_help(View view)
     {
         Intent i=new Intent(Register.this,OnHelp.class);
