@@ -1,2 +1,0 @@
-# afterdeath
-Simple to you
