@@ -69,7 +69,7 @@ public class Register extends AppCompatActivity {
                 }
                 catch (Exception e)
                 {
-                    Toast.makeText(Register.this, ""+e, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, "Exception is "+e,Toast.LENGTH_SHORT).show();
                 }
                 SharedPreferences.Editor editor=sf.edit();
                 name=getName.getText().toString();
