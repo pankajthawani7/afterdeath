@@ -38,7 +38,7 @@ public class SignUpPage extends AppCompatActivity {
                   }
                   else
                   {
-                      Toast.makeText(SignUpPage.this, "Please enter valid OTP", Toast.LENGTH_SHORT).show();
+                      Toast.makeText(SignUpPage.this, "enter valid OTP", Toast.LENGTH_SHORT).show();
                   }
               }
 
