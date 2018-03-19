@@ -97,7 +97,7 @@ public class Dashboard extends AppCompatActivity {
                 StringBuilder sb=new StringBuilder();
                 sb.append("Name-"+Register.name+"\n");
                 sb.append("Mobile No-"+Register.mob+"\n");
-                sb.append("Address-"+fulladdress+"\n");
+                sb.append("Address of user-"+fulladdress+"\n");
                 Uri uri = Uri.parse("smsto:9529024482");
                 Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
                 intent.putExtra("sms_body", sb.toString());
