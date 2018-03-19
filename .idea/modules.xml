@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+
       <module fileurl="file://C:\Users\ritik\Documents\GitHub\afterdeath\AfterDeathCare2.iml" filepath="C:\Users\ritik\Documents\GitHub\afterdeath\AfterDeathCare2.iml" />
+
       <module fileurl="file://$PROJECT_DIR$/afterdeath.iml" filepath="$PROJECT_DIR$/afterdeath.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\RAHUL\Documents\GitHub\afterdeath\app\app.iml" filepath="C:\Users\RAHUL\Documents\GitHub\afterdeath\app\app.iml" />
     </modules>
   </component>
 </project>
